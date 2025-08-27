@@ -1,0 +1,10 @@
+export const JWT_STRATEGY = 'jwt';
+export const JWT_REFRESH_STRATEGY = 'jwt-refresh';
+
+export const ENV_JWT_SECRET = 'JWT_SECRET';
+export const ENV_JWT_REFRESH_SECRET = 'JWT_REFRESH_SECRET';
+export const ENV_JWT_ACCESS_EXPIRES = 'JWT_ACCESS_EXPIRATION_TIME';
+export const ENV_JWT_REFRESH_EXPIRES = 'JWT_REFRESH_EXPIRATION_TIME';
+export const ENV_DATABASE_URL = 'DATABASE_URL';
+
+

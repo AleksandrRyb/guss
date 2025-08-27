@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - VITE_PORT=5173
+      - HOST=0.0.0.0
+    volumes:
+      - ./client:/app:cached
+      - /app/node_modules
+    command: npm run dev -- --host --strictPort --port 5173
+    working_dir: /app
+    restart: unless-stopped
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server
+    depends_on:
+      - postgres
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgres://login:password@postgres:5432/guss
+      - JWT_SECRET=dev-jwt-secret
+      - JWT_REFRESH_SECRET=dev-jwt-refresh-secret
+      - JWT_ACCESS_EXPIRATION_TIME=15m
+      - JWT_REFRESH_EXPIRATION_TIME=7d
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app:cached
+      - /app/node_modules
+    command: npm run start:dev
+    working_dir: /app
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=login
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=guss
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+
+
