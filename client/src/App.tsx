@@ -1,8 +1,45 @@
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { LoginPage } from './pages/login'
+import { HomePage } from './pages/home'
+import { isAuthenticated } from './lib/utils/auth'
+
+function PrivateRoute({ children }: { children: React.ReactNode }) {
+  if (!isAuthenticated()) {
+    return <Navigate to="/login" replace />
+  }
+  return <>{children}</>
+}
+
+function GuestRoute({ children }: { children: React.ReactNode }) {
+  if (isAuthenticated()) {
+    return <Navigate to="/" replace />
+  }
+  return <>{children}</>
+}
+
 function App() {
   return (
-    <div className="min-h-dvh w-full flex items-center justify-center bg-background text-foreground">
-      <h1 className="text-3xl font-semibold">The Last Of Guss</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <GuestRoute>
+              <LoginPage />
+            </GuestRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

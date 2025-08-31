@@ -1,10 +1,20 @@
-export const JWT_STRATEGY = 'jwt';
-export const JWT_REFRESH_STRATEGY = 'jwt-refresh';
+export const JWT = {
+  STRATEGY: 'jwt',
+  REFRESH_STRATEGY: 'jwt-refresh',
+  ENV: {
+    SECRET: 'JWT_SECRET',
+    REFRESH_SECRET: 'JWT_REFRESH_SECRET',
+    ACCESS_EXPIRES: 'JWT_ACCESS_EXPIRATION_TIME',
+    REFRESH_EXPIRES: 'JWT_REFRESH_EXPIRATION_TIME',
+  },
+} as const;
 
-export const ENV_JWT_SECRET = 'JWT_SECRET';
-export const ENV_JWT_REFRESH_SECRET = 'JWT_REFRESH_SECRET';
-export const ENV_JWT_ACCESS_EXPIRES = 'JWT_ACCESS_EXPIRATION_TIME';
-export const ENV_JWT_REFRESH_EXPIRES = 'JWT_REFRESH_EXPIRATION_TIME';
 export const ENV_DATABASE_URL = 'DATABASE_URL';
+
+export const ROLES = {
+  admin: 'admin',
+  nikita: 'nikita',
+  user: 'user',
+} as const;
 
 

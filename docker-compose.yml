@@ -12,6 +12,7 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
       - VITE_PORT=5173
+      - VITE_API_URL=http://localhost:3000
       - HOST=0.0.0.0
     volumes:
       - ./client:/app:cached
@@ -34,6 +35,8 @@ services:
       - JWT_REFRESH_SECRET=dev-jwt-refresh-secret
       - JWT_ACCESS_EXPIRATION_TIME=15m
       - JWT_REFRESH_EXPIRATION_TIME=7d
+      - ROUND_DURATION=60
+      - COOLDOWN_DURATION=30
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
     ports:

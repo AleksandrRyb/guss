@@ -7,7 +7,7 @@ import { UsersModule } from '../users/users.module';
 import { AccessTokenStrategy } from './strategies/access-token.strategy';
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 import { ConfigService } from '@nestjs/config';
-import { ENV_JWT_ACCESS_EXPIRES, ENV_JWT_SECRET } from '../../common/constants/auth.constants';
+import { JWT } from '../../common/constants/auth.constants';
 
 @Module({
   imports: [
@@ -17,8 +17,8 @@ import { ENV_JWT_ACCESS_EXPIRES, ENV_JWT_SECRET } from '../../common/constants/a
       global: true,
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
-        secret: config.get<string>(ENV_JWT_SECRET) ?? 'dev-jwt-secret',
-        signOptions: { expiresIn: config.get<string>(ENV_JWT_ACCESS_EXPIRES) ?? '15m' },
+        secret: config.get<string>(JWT.ENV.SECRET) ?? 'dev-jwt-secret',
+        signOptions: { expiresIn: config.get<string>(JWT.ENV.ACCESS_EXPIRES) ?? '15m' },
       }),
     }),
   ],

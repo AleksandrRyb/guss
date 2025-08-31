@@ -10,8 +10,8 @@ export class UsersService {
     return this.usersRepository.findByUsername(username);
   }
 
-  async createUser(username: string, passwordHash: string): Promise<User> {
-    return this.usersRepository.create(username, passwordHash);
+  async createUser(username: string, passwordHash: string, role: string): Promise<User> {
+    return this.usersRepository.create(username, passwordHash, role);
   }
 }
 

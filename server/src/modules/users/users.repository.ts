@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
-import { DRIZZLE } from '../database/database.module';
+import { DRIZZLE } from '../../common/database/database.module';
 import * as schema from './users.schema';
 import { users } from './users.schema';
 
@@ -14,8 +14,8 @@ export class UsersRepository {
     return user ?? undefined;
   }
 
-  async create(username: string, passwordHash: string) {
-    const [created] = await this.db.insert(users).values({ username, passwordHash }).returning();
+  async create(username: string, passwordHash: string, role: string) {
+    const [created] = await this.db.insert(users).values({ username, passwordHash, role }).returning();
     return created;
   }
 }

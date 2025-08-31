@@ -14,6 +14,6 @@ COPY . .
 EXPOSE 5173
 
 # Default command runs dev server (not a production build)
-CMD ["npm", "run", "dev", "--", "--host", "--strictPort", "--port", "5173"]
+CMD ["npm", "run", "dev"]
 
 
