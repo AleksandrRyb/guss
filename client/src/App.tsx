@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { LoginPage } from './pages/login'
 import { HomePage } from './pages/home'
 import { isAuthenticated } from './lib/utils/auth'
+import { RoundPage } from './pages/round'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   if (!isAuthenticated()) {
@@ -34,6 +35,14 @@ function App() {
           element={
             <PrivateRoute>
               <HomePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/round/:id"
+          element={
+            <PrivateRoute>
+              <RoundPage />
             </PrivateRoute>
           }
         />

@@ -15,6 +15,20 @@
       "when": 1756466606897,
       "tag": "0001_right_salo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1756705254994,
+      "tag": "0002_bumpy_yellow_claw",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1756715132982,
+      "tag": "0003_tan_lizard",
+      "breakpoints": true
     }
   ]
 }

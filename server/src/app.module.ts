@@ -7,9 +7,10 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RoundsModule } from './modules/rounds/rounds.module';
 import { LoggerModule } from './common/logger/logger.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [ConfigModule, DatabaseModule, UsersModule, AuthModule, RoundsModule, LoggerModule],
+  imports: [ConfigModule, DatabaseModule, UsersModule, AuthModule, RoundsModule, LoggerModule, ScheduleModule.forRoot()],
   controllers: [AppController],
   providers: [AppService],
 })

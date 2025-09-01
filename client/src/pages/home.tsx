@@ -1,7 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { Link } from 'react-router-dom'
 import { getCurrentUser, isAdmin } from '../lib/utils/auth'
 import { getRounds, createRound } from '../lib/api/rounds'
 import { formatDateTimeISO } from '../lib/utils/date'
+import { ROUND_STATUS_LABEL_RU } from '../lib/constants/rounds'
 import { Loader2 } from 'lucide-react'
 
 export function HomePage() {
@@ -47,13 +49,13 @@ export function HomePage() {
         {roundsQuery.isError && <div className="text-red-500">Ошибка загрузки раундов</div>}
         <div className="grid grid-cols-1 gap-6">
           {roundsQuery.data?.map((r) => (
-            <div key={r.id} className="border rounded-md p-4 bg-card text-card-foreground">
+            <Link to={`/round/${r.id}`} className="border rounded-md p-4 bg-card text-card-foreground block hover:bg-accent/30">
               <div className="text-sm font-mono opacity-70">● Round ID: {r.id}</div>
               <div className="mt-4 text-sm">Start: {formatDateTimeISO(r.startAt)}</div>
               <div className="text-sm">End: {formatDateTimeISO(r.endAt)}</div>
               <div className="my-4 h-px bg-border" />
-              <div className="text-sm">Статус: {r.status === 'active' ? 'Активен' : r.status === 'cooldown' ? 'Cooldown' : 'Завершен'}</div>
-            </div>
+              <div className="text-sm">Статус: {ROUND_STATUS_LABEL_RU[r.status as keyof typeof ROUND_STATUS_LABEL_RU]}</div>
+            </Link>
           ))}
         </div>
       </div>

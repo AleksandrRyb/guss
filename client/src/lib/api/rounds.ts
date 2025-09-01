@@ -17,4 +17,30 @@ export async function createRound(): Promise<Round> {
   return data
 }
 
+export interface RoundDetails extends Round {
+  secondsUntilStart: number
+  secondsUntilEnd: number
+  stats?: {
+    playersTotal: number
+    tapsTotal: number
+    scoreTotal: number
+    winner: { userId: string; username: string; score: number }
+  }
+}
+
+export async function getRoundById(id: string): Promise<RoundDetails> {
+  const { data } = await api.get<RoundDetails>(`/rounds/${id}`)
+  return data
+}
+
+export interface TapResponse {
+  taps: number
+  score: number
+}
+
+export async function tapRound(id: string): Promise<TapResponse> {
+  const { data } = await api.post<TapResponse>(`/rounds/${id}/tap`)
+  return data
+}
+
 

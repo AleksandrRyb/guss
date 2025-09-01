@@ -32,8 +32,8 @@ export class AuthController {
   @Post('refresh')
   @UseGuards(AuthGuard(JWT.REFRESH_STRATEGY))
   @HttpCode(HttpStatus.OK)
-  async refresh(@Req() req: any): Promise<Tokens> {
-    const payload = req.user as { sub: string; username: string };
+  async refresh(@Req() req: { user: { sub: string; username: string } }): Promise<Tokens> {
+    const payload = req.user;
     this.logger.debug({ sub: payload.sub, username: payload.username }, 'auth.refresh called');
     const result = await this.authService.refreshFromPayload(payload);
     this.logger.debug({ sub: payload.sub, username: payload.username }, 'auth.refresh success');

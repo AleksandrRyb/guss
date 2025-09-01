@@ -36,11 +36,11 @@ export class AuthService {
 
   async login(username: string, password: string): Promise<Tokens> {
     this.logger.debug({ username }, 'login called');
-    const existing = await this.usersService.findByUsername(username);
+    const existing = await this.usersService.findByUsername(username.toLowerCase());
     if (!existing) {
       const passwordHash = await hash(password);
-      const role = username === 'admin' ? ROLES.admin : username === 'nikita' ? ROLES.nikita : ROLES.user;
-      const created = await this.usersService.createUser(username, passwordHash, role);
+      const role = username === ROLES.admin ? ROLES.admin : username === ROLES.nikita ? ROLES.nikita : ROLES.user;
+      const created = await this.usersService.createUser(username.toLowerCase(), passwordHash, role);
       this.logger.debug({ username }, 'login auto-created user');
       const tokens = await this.generateTokens({ sub: created.id, username: created.username, role: (created as any).role });
       this.logger.debug({ username }, 'login tokens generated (auto-create)');

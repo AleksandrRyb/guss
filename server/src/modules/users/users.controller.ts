@@ -22,9 +22,10 @@ export class UsersController {
 
   @Post('register')
   async register(@Body() dto: CreateUserDto) {
+    const username = dto.username.toLowerCase();
     const passwordHash = await hash(dto.password);
-    const role = dto.username === 'admin' ? ROLES.admin : dto.username === 'nikita' ? ROLES.nikita : ROLES.user;
-    const user = await this.usersService.createUser(dto.username, passwordHash, role);
+    const role = username === ROLES.admin ? ROLES.admin : username === ROLES.nikita ? ROLES.nikita : ROLES.user;
+    const user = await this.usersService.createUser(username, passwordHash, role);
     return { id: user.id, username: user.username, createdAt: user.createdAt };
   }
 
